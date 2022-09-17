@@ -1,0 +1,17 @@
+<<UUID>>
+Brainstorm a complete, detailed synopsis for a story with the following appeal terms:
+
+
+GENRE: <<GENRE>>
+SETTING: <<SETTING>>
+TIME: <<TIME>>
+STORY TYPE: <<STORYLINE>>
+PACE: <<PACE>>
+CHARACTER: <<CHARACTER>>
+TONE: <<TONE>>
+STYLE: <<STYLE>>
+
+
+Highly detailed complete plot synopsis with beginning, middle, and end.
+
+BEGINNING:
