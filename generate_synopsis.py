@@ -74,7 +74,7 @@ def generate_synopsis():
     prompt = prompt.replace('<<SETTING>>', setting)
     prompt = prompt.replace('<<TIME>>', timeperiod)
     prompt = prompt.replace('<<UUID>>', str(uuid4()))
-    print('\n\nPROMPT:', prompt)
+    print('\n\nTERMS:', genre, setting, timeperiod, tone, character, pace, storyline, style)
     # generate and save synopsis
     synopsis = gpt3_completion(prompt).replace('SYNOPSIS:','').replace('BEGINNING:', '').replace('MIDDLE:','').replace('END:','').replace('  ', ' ')
     return synopsis

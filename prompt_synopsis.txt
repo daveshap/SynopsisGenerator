@@ -1,5 +1,5 @@
 <<UUID>>
-Brainstorm an extremely long complete, detailed synopsis for a story with the following appeal terms:
+Think like a professional author. Brainstorm an extremely long complete, detailed synopsis for a story with the following appeal terms:
 
 
 GENRE: <<GENRE>>
@@ -12,6 +12,6 @@ TONE: <<TONE>>
 STYLE: <<STYLE>>
 
 
-Extremely long and highly detailed complete plot synopsis with beginning, middle, and end.
+Brainstorm an extremely long and highly detailed complete plot synopsis with beginning, middle, and end. Include character and setting names. Vividly depict the entire story.
 
 BEGINNING:
