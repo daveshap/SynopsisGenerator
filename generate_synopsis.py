@@ -35,7 +35,7 @@ def gpt3_completion(prompt, engine='text-davinci-002', temp=1.1, top_p=1.0, toke
                 presence_penalty=pres_pen,
                 stop=stop)
             text = response['choices'][0]['text'].strip()
-            #text = re.sub('\s+', ' ', text)
+            text = re.sub('\s+', ' ', text)
             filename = '%s_gpt3.txt' % time()
             save_file('gpt3_logs/%s' % filename, prompt + '\n\n==========\n\n' + text)
             return text
@@ -53,7 +53,7 @@ def pick_random(filename):
     return choice(lines)
 
 
-if __name__ == '__main__':
+def generate_synopsis():
     # pick random variables
     genre = pick_random('genres.txt')
     tone = pick_random('tones.txt')
@@ -76,8 +76,15 @@ if __name__ == '__main__':
     prompt = prompt.replace('<<UUID>>', str(uuid4()))
     print('\n\nPROMPT:', prompt)
     # generate and save synopsis
-    synopsis = 'APPEAL TERMS: %s, %s, %s, %s, %s, %s, %s, %s\n\nBEGINNING: ' % (genre, setting, timeperiod, character, pace, style, tone, storyline)
-    synopsis = synopsis + gpt3_completion(prompt).replace('SYNOPSIS:','').replace('  ', ' ')
-    filename = 'synopses/%s.txt' % str(uuid4())
-    save_file(filename, synopsis)
-    print('\n\nSYNOPSIS:', synopsis)
+    synopsis = gpt3_completion(prompt).replace('SYNOPSIS:','').replace('BEGINNING:', '').replace('MIDDLE:','').replace('END:','').replace('  ', ' ')
+    return synopsis
+
+
+if __name__ == '__main__':
+    for i in list(range(0,200)):
+        synopsis = generate_synopsis()
+        print('\n\nSYNOPSIS:', synopsis)
+        unique_id = str(uuid4())
+        save_file('current_id.txt', unique_id)
+        filename = 'synopses/%s.txt' % unique_id
+        save_file(filename, synopsis)
