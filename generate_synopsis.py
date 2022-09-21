@@ -48,7 +48,6 @@ def gpt3_completion(prompt, engine='text-davinci-002', temp=1.1, top_p=1.0, toke
 
 
 def pick_random(filename):
-    seed()
     lines = open_file(filename).splitlines()
     return choice(lines)
 
@@ -81,6 +80,7 @@ def generate_synopsis():
 
 
 if __name__ == '__main__':
+    seed()
     for i in list(range(0,200)):
         synopsis = generate_synopsis()
         print('\n\nSYNOPSIS:', synopsis)
