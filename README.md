@@ -44,3 +44,17 @@ End goal should be a finetune dataset with the following characteristics
 2. Diverse kinds of input (different formats, structures, keywords, appeal terms, varying levels of detail)
 3. Consistent output (well fleshed out synopsis that tells the whole story in one big paragraph)
 4. Finetuned model that reliably generates top notch synopses
+
+# Input Formats
+
+- List of appeal terms
+- Chat log (between an author and a reader, or a librarian and patron) aka REFERENCE INTERVIEW
+- "I want a book that..."
+- List of comp titles
+
+# Discriminator for Synopsis GAN
+
+- Must have all 3 pillars: Plot, Character, Setting
+- All characters must be named and have arcs
+- Setting must be named, dated, described, etc
+- Plot needs clear beginning, middle, and end - with narrative progression

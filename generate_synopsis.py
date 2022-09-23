@@ -19,7 +19,7 @@ def save_file(filepath, content):
 openai.api_key = open_file('openaiapikey.txt')
 
 
-def gpt3_completion(prompt, engine='text-davinci-002', temp=1.1, top_p=1.0, tokens=3000, freq_pen=0.0, pres_pen=0.0, stop=['asdfasdf', 'asdasdf']):
+def gpt3_completion(prompt, engine='text-davinci-002', temp=1.1, top_p=1.0, tokens=1000, freq_pen=0.0, pres_pen=0.0, stop=['asdfasdf', 'asdasdf']):
     max_retry = 5
     retry = 0
     prompt = prompt.encode(encoding='ASCII',errors='ignore').decode()  # force it to fix any unicode errors
@@ -52,7 +52,7 @@ def pick_random(filename):
     return choice(lines)
 
 
-def generate_synopsis():
+def pick_variables():
     # pick random variables
     genre = pick_random('genres.txt')
     tone = pick_random('tones.txt')
@@ -62,6 +62,11 @@ def generate_synopsis():
     style = pick_random('styles.txt')
     setting = pick_random('settings.txt')
     timeperiod = pick_random('times.txt')
+    return genre, tone, character, pace, storyline, style, setting, timeperiod
+    
+    
+
+def generate_synopsis(genre, tone, character, pace, storyline, style, setting, timeperiod):
     # instantiate prompt
     prompt = open_file('prompt_synopsis.txt')
     prompt = prompt.replace('<<GENRE>>', genre)
@@ -73,18 +78,42 @@ def generate_synopsis():
     prompt = prompt.replace('<<SETTING>>', setting)
     prompt = prompt.replace('<<TIME>>', timeperiod)
     prompt = prompt.replace('<<UUID>>', str(uuid4()))
-    print('\n\nTERMS:', genre, setting, timeperiod, tone, character, pace, storyline, style)
     # generate and save synopsis
-    synopsis = gpt3_completion(prompt).replace('SYNOPSIS:','').replace('BEGINNING:', '').replace('MIDDLE:','').replace('END:','').replace('  ', ' ')
+    synopsis = gpt3_completion(prompt).replace(':','').replace('SYNOPSIS','').replace('BEGINNING', '').replace('MIDDLE','').replace('ENDING','').replace('END','').replace('  ', ' ')
     return synopsis
 
 
-if __name__ == '__main__':
-    seed()
-    for i in list(range(0,200)):
-        synopsis = generate_synopsis()
+def generate_many(number):
+    for i in list(range(0,number)):
+        genre, tone, character, pace, storyline, style, setting, timeperiod = pick_variables()
+        synopsis = generate_synopsis(genre, tone, character, pace, storyline, style, setting, timeperiod)
         print('\n\nSYNOPSIS:', synopsis)
         unique_id = str(uuid4())
-        save_file('current_id.txt', unique_id)
+        #save_file('current_id.txt', unique_id)
         filename = 'synopses/%s.txt' % unique_id
         save_file(filename, synopsis)
+
+
+def grade_synopsis(synopsis):
+    prompt = open_file('prompt_grade.txt').replace('<<STORY>>', synopsis)
+    grade = gpt3_completion(prompt, temp=0.0)
+    return grade  # should be a string like '1' or '3' or whatever
+
+
+def synopsis_gan():
+    genre, tone, character, pace, storyline, style, setting, timeperiod = pick_variables()
+    print('\n\nTERMS:', genre, setting, timeperiod, tone, character, pace, storyline, style)
+    while True:
+        synopsis = generate_synopsis(genre, tone, character, pace, storyline, style, setting, timeperiod)
+        print('\n\nSYNOPSIS:', synopsis)
+        grade = grade_synopsis(synopsis)
+        print('\n\nGRADE:', grade)
+        if grade == '5':
+            unique_id = str(uuid4())
+            filename = 'synopses/%s.txt' % unique_id
+            save_file(filename, synopsis)
+            exit(0)
+
+if __name__ == '__main__':
+    seed()
+    synopsis_gan()

@@ -8,8 +8,8 @@ TIME PERIOD: <<TIME>>
 STORY TYPE: <<STORYLINE>>
 PACE: <<PACE>>
 CHARACTER: <<CHARACTER>>
-TONE: <<TONE>>
-STYLE: <<STYLE>>
+STORY TONE: <<TONE>>
+WRITING STYLE: <<STYLE>>
 
 
 Brainstorm an extremely long and highly detailed complete plot synopsis with beginning, middle, and end. Include character and setting names. Vividly depict the entire novel.
